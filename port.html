@@ -22,26 +22,6 @@ body{
   overflow-x:hidden;
 }
 
-/* Gradient animated background */
-body::before{
-  content:"";
-  position:fixed;
-  width:200%;
-  height:200%;
-  background: radial-gradient(circle at 20% 20%, #0ea5e9, transparent 25%),
-              radial-gradient(circle at 80% 80%, #38bdf8, transparent 25%);
-  animation:move 10s linear infinite;
-  z-index:-3;
-  opacity:0.15;
-}
-
-@keyframes move{
-  0%{transform:translate(0,0)}
-  50%{transform:translate(-10%, -10%)}
-  100%{transform:translate(0,0)}
-}
-
-/* Particles container */
 #particles-js{
   position:fixed;
   width:100%;
@@ -51,7 +31,6 @@ body::before{
   z-index:-2;
 }
 
-/* Cursor Glow */
 .cursor-glow{
   position:fixed;
   width:280px;
@@ -64,7 +43,6 @@ body::before{
   filter: blur(20px);
 }
 
-/* Navbar */
 nav{
   position:fixed;
   top:0;
@@ -77,9 +55,7 @@ nav{
   z-index:1000;
 }
 
-nav h2{
-  color:#38bdf8;
-}
+nav h2{ color:#38bdf8; }
 
 nav a{
   color:white;
@@ -88,7 +64,6 @@ nav a{
   font-size:14px;
 }
 
-/* Hero */
 header{
   height:100vh;
   display:flex;
@@ -96,12 +71,9 @@ header{
   justify-content:center;
   align-items:center;
   text-align:center;
-  padding:20px;
 }
 
-h1{
-  font-size:56px;
-}
+h1{ font-size:56px; }
 
 .typing{
   margin-top:10px;
@@ -120,7 +92,6 @@ h1{
   color:black;
 }
 
-/* Sections */
 section{
   padding:90px 20px;
   max-width:1100px;
@@ -133,14 +104,12 @@ h3{
   font-size:28px;
 }
 
-/* Cards */
 .card{
   background:rgba(15,23,42,0.7);
   padding:25px;
   border-radius:15px;
   margin-bottom:20px;
   transition:0.3s;
-  backdrop-filter:blur(10px);
 }
 
 .card:hover{
@@ -148,10 +117,7 @@ h3{
   box-shadow:0 0 25px rgba(56,189,248,0.25);
 }
 
-/* Skills Bars */
-.skill{
-  margin-bottom:18px;
-}
+.skill{ margin-bottom:18px; }
 
 .bar{
   height:8px;
@@ -166,19 +132,10 @@ h3{
   border-radius:20px;
 }
 
-/* Projects Grid */
 .projects{
   display:grid;
   grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
   gap:20px;
-}
-
-/* Social */
-.social a{
-  margin-right:15px;
-  color:#38bdf8;
-  text-decoration:none;
-  font-weight:500;
 }
 
 footer{
@@ -213,32 +170,15 @@ footer{
 <section id="about">
   <h3>About Me</h3>
   <div class="card">
-    I'm a passionate Software Developer who builds modern, fast and premium web experiences with clean UI and strong performance.
+    Passionate software developer building modern web experiences.
   </div>
 </section>
 
 <section id="skills">
   <h3>Skills</h3>
-
-  <div class="skill">
-    HTML/CSS
-    <div class="bar"><div class="fill" style="width:95%"></div></div>
-  </div>
-
-  <div class="skill">
-    JavaScript
-    <div class="bar"><div class="fill" style="width:90%"></div></div>
-  </div>
-
-  <div class="skill">
-    React
-    <div class="bar"><div class="fill" style="width:85%"></div></div>
-  </div>
-
-  <div class="skill">
-    Node.js
-    <div class="bar"><div class="fill" style="width:80%"></div></div>
-  </div>
+  <div class="skill">HTML/CSS<div class="bar"><div class="fill" style="width:95%"></div></div></div>
+  <div class="skill">JavaScript<div class="bar"><div class="fill" style="width:90%"></div></div></div>
+  <div class="skill">React<div class="bar"><div class="fill" style="width:85%"></div></div></div>
 </section>
 
 <section id="projects">
@@ -247,87 +187,58 @@ footer{
     <div class="card">Portfolio Website</div>
     <div class="card">E-commerce Platform</div>
     <div class="card">Business Dashboard</div>
-    <div class="card">Startup Landing Page</div>
   </div>
 </section>
 
 <section id="contact">
   <h3>Contact</h3>
-  <div class="card">
-    📧 atharvsinghai01@gmail.com
-    <br><br>
-    <div class="social">
-      <a href="#">GitHub</a>
-      <a href="#">LinkedIn</a>
-      <a href="#">Instagram</a>
-    </div>
-  </div>
+  <div class="card">📧 atharvsinghai01@gmail.com</div>
 </section>
 
-<footer>
-  © 2026 Atharv Singhai
-</footer>
+<footer>© 2026 Atharv Singhai</footer>
 
 <script src="https://cdn.jsdelivr.net/npm/tsparticles@2/tsparticles.bundle.min.js"></script>
 
 <script>
-/* Typing Animation */
-const text = ["Software Developer","React Specialist","Tech Enthusiast","UI Lover"];
-let count=0,index=0,currentText="",letter="";
+/* Typing animation */
+const words=["Software Developer","React Developer","Tech Enthusiast"];
+let i=0,j=0,current="",isDeleting=false;
 
-(function type(){
-  if(count===text.length){count=0;}
-  currentText=text[count];
-  letter=currentText.slice(0,++index);
-  document.getElementById("typing").textContent=letter;
+function type(){
+  current=words[i];
+  document.getElementById("typing").textContent=current.substring(0,j);
 
-  if(letter.length===currentText.length){
-    count++;
-    index=0;
+  if(!isDeleting && j<current.length){ j++; }
+  else if(isDeleting && j>0){ j--; }
+  else{
+    isDeleting=!isDeleting;
+    if(!isDeleting){ i=(i+1)%words.length; }
   }
-  setTimeout(type,90);
-})();
+  setTimeout(type,120);
+}
+type();
 
-/* Particles */
-tsParticles.load("particles-js", {
-  background:{color:"transparent"},
-  fpsLimit:60,
-  particles:{
-    number:{value:60},
-    color:{value:"#38bdf8"},
-    links:{
-      enable:true,
-      distance:150,
-      color:"#38bdf8",
-      opacity:0.2,
-      width:1
-    },
-    move:{enable:true,speed:1.5},
-    size:{value:{min:1,max:3}},
-    opacity:{value:0.5}
-  },
-  interactivity:{
-    events:{onHover:{enable:true,mode:"repulse"}},
-    modes:{repulse:{distance:120}}
+/* Particles SAFE init */
+window.addEventListener("load", () => {
+  if (window.tsParticles) {
+    tsParticles.load("particles-js", {
+      particles:{
+        number:{value:50},
+        color:{value:"#38bdf8"},
+        links:{enable:true,color:"#38bdf8",opacity:0.2},
+        move:{enable:true,speed:1},
+        size:{value:2},
+        opacity:{value:0.5}
+      }
+    });
   }
 });
 
-/* Cursor Glow */
+/* Cursor glow */
 const glow=document.querySelector('.cursor-glow');
 document.addEventListener('mousemove',e=>{
   glow.style.left=e.clientX+'px';
   glow.style.top=e.clientY+'px';
-});
-
-document.querySelectorAll('a,.card,.btn').forEach(el=>{
-  el.addEventListener('mouseenter',()=>{
-    glow.style.width='340px';
-    glow.style.height='340px';
-  });
-  el.addEventListener('mouseleave',()=>{
-    glow.style.width='280px';
-    glow.style.height='280px';
-  });
 });
 </script>
 
